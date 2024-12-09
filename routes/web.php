@@ -15,4 +15,5 @@ use App\Http\Controllers\AccountController;
 Route::middleware(['auth'])->group(function () {
     Route::get('/account/edit', [AccountController::class, 'showForm'])->name('account.edit');
     Route::post('/account/update', [AccountController::class, 'update'])->name('account.update');
+    Route::post('/account/survey', [AccountController::class, 'storeSurvey'])->name('account.survey.store');
 });
