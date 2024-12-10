@@ -2,15 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\family;
+use App\Models\FamilyMember;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Survey;
+use Illuminate\Support\Facades\DB;
 
 class AccountController extends Controller
 {
     public function showForm()
     {
-        return view('account.edit');
+        $user = Auth::user();
+        $family = family::where('user_id', $user->id)->get();
+        return view('account.edit', compact('user', 'family'));
     }
 
     public function update(Request $request)
@@ -67,6 +72,65 @@ class AccountController extends Controller
 
         return redirect()->route('account.edit')->with('success', 'Ankieta została zapisana.');
     }
+
+    public function inviteFamilyMember(Request $request)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:family,email',
+        ]);
+
+        family::create([
+            'user_id' => Auth::id(),
+            'name' => $validatedData['name'],
+            'email' => $validatedData['email'],
+            'status' => 'Nieaktywny',
+        ]);
+
+        return redirect()->route('account.edit')->with('success', 'Zaproszenie zostało wysłane.');
+    }
+
+    public function destroyFamilyMember($id)
+    {
+        $familyMember = Family::findOrFail($id);
+
+        if ($familyMember->user_id !== Auth::id()) {
+            abort(403, 'Nie masz uprawnień do usunięcia tego członka rodziny.');
+        }
+
+        $familyMember->delete();
+
+        return redirect()->route('account.edit')->with('success', 'Członek rodziny został usunięty.');
+    }
+
+    public function saveAllergens(Request $request)
+    {
+        $user = Auth::user();
+        $allergens = $request->input('allergens', []);
+
+        foreach ($allergens as $allergen) {
+            DB::table('user_allergens')->updateOrInsert(
+                ['user_id' => $user->id, 'allergen' => $allergen],
+                ['created_at' => now(), 'updated_at' => now()]
+            );
+        }
+
+        return redirect()->back()->with('success', 'Alergeny zostały zapisane.');
+    }
+
+    public function savePhysicalActivity(Request $request)
+    {
+        $validated = $request->validate([
+            'activity_level' => 'required|in:sitting,low,light,moderate,high,very_high',
+        ]);
+
+        $user = Auth::user();
+        $user->activity_level = $request->input('activity_level');
+        $user->save();
+
+        return redirect()->back()->with('success', 'Poziom aktywności fizycznej został zapisany.');
+    }
+
 
 }
 
