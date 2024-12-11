@@ -242,3 +242,54 @@ input[type="radio"] {
     padding: 10px;
     font-weight: bold;
 }
+
+.pod {
+    width: 80px;
+    height: 2px;
+    border-radius: 10px;
+    background-color: var(--primary-color);
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.test {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: var(--primary-color);
+    border-radius: 10px;
+    opacity: 90%;
+    border: 1px solid var(--secondary-color);
+    width: 82%;
+}
+
+
+label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+
+}
+
+input[type="radio"] {
+    width: 25px;
+    height: 25px;
+    margin-right: 7px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+img {
+    max-width: 220px;
+    height: auto;
+    margin-bottom: 10px;
+    border: 3px solid transparent;
+    border-radius: 10px;
+    transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+img:hover {
+    transform: scale(1.03);
+}

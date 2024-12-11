@@ -22,5 +22,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/physical-activity', [AccountController::class, 'savePhysicalActivity'])->name('physicalActivity.save');
     Route::post('/settings/save', [AccountController::class, 'saveSettings'])->name('settings.save');
     Route::post('/settings/saveTheme', [AccountController::class, 'saveTheme'])->name('settings.saveTheme');
+    Route::get('/allergens', [AccountController::class, 'getAllergens'])->name('allergens.get');
+    Route::post('/settings/saveBackground', [AccountController::class, 'saveBackground'])->name('settings.saveBackground');
 
 });

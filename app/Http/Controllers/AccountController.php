@@ -46,29 +46,37 @@ class AccountController extends Controller
     }
 
     public function storeSurvey(Request $request)
-    {
-        $validated = $request->validate([
-            'gender' => 'required|string',
-            'height' => 'nullable|integer',
-            'weight' => 'nullable|numeric',
-            'age' => 'nullable|integer',
-            'is_pregnant' => 'nullable|boolean',
-            'pregnancy_week' => 'nullable|integer|required_if:is_pregnant,1',
-            'pre_pregnancy_weight' => 'nullable|numeric|required_if:is_pregnant,1',
-            'delivery_date' => 'nullable|date|required_if:is_pregnant,1',
-            'waist_circumference' => 'nullable|numeric',
-            'hip_circumference' => 'nullable|numeric',
-            'bust_circumference' => 'nullable|numeric',
-            'neck_circumference' => 'nullable|numeric',
-            'wrist_circumference' => 'nullable|numeric',
-            'bicep_circumference' => 'nullable|numeric',
-            'thigh_circumference' => 'nullable|numeric',
-            'calf_circumference' => 'nullable|numeric',
-        ]);
+    {$validated = $request->validate([
+        'gender' => 'required|string',
+        'height' => 'nullable|integer',
+        'weight' => 'nullable|numeric',
+        'age' => 'nullable|integer',
+        'is_pregnant' => 'nullable|boolean',
+        'pregnancy_week' => 'nullable|integer|required_if:is_pregnant,1',
+        'pre_pregnancy_weight' => 'nullable|numeric|required_if:is_pregnant,1',
+        'delivery_date' => 'nullable|date|required_if:is_pregnant,1',
+        'waist_circumference' => 'nullable|numeric',
+        'hip_circumference' => 'nullable|numeric',
+        'bust_circumference' => 'nullable|numeric',
+        'neck_circumference' => 'nullable|numeric',
+        'wrist_circumference' => 'nullable|numeric',
+        'bicep_circumference' => 'nullable|numeric',
+        'thigh_circumference' => 'nullable|numeric',
+        'calf_circumference' => 'nullable|numeric',
+    ]);
 
-        $validated['user_id'] = auth()->id();
+        $survey = Survey::where('user_id', auth()->id())->first();
 
-        Survey::create($validated);
+        if ($survey) {
+            $survey->update($validated);
+        } else {
+            $validated['user_id'] = auth()->id();
+            Survey::create($validated);
+        }
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 'Ankieta została zapisana.']);
+        }
 
         return redirect()->route('account.edit')->with('success', 'Ankieta została zapisana.');
     }
@@ -108,6 +116,11 @@ class AccountController extends Controller
         $user = Auth::user();
         $allergens = $request->input('allergens', []);
 
+        DB::table('user_allergens')
+            ->where('user_id', $user->id)
+            ->whereNotIn('allergen', $allergens)
+            ->delete();
+
         foreach ($allergens as $allergen) {
             DB::table('user_allergens')->updateOrInsert(
                 ['user_id' => $user->id, 'allergen' => $allergen],
@@ -115,20 +128,32 @@ class AccountController extends Controller
             );
         }
 
-        return redirect()->back()->with('success', 'Alergeny zostały zapisane.');
+        return response()->json(['success' => true]);
+    }
+
+    public function getAllergens()
+    {
+        $user = Auth::user();
+        $allergens = DB::table('user_allergens')
+            ->where('user_id', $user->id)
+            ->pluck('allergen');
+
+        return response()->json([
+            'allergens' => $allergens
+        ]);
     }
 
     public function savePhysicalActivity(Request $request)
     {
         $validated = $request->validate([
-            'activity_level' => 'required|in:sitting,low,light,moderate,high,very_high',
+            'activity_level' => 'required|string|in:sitting,low,light,moderate,high,very_high',
         ]);
 
+
         $user = Auth::user();
-        $user->activity_level = $request->input('activity_level');
+        $user->activity_level = $validated['activity_level'];
         $user->save();
 
-        return redirect()->back()->with('success', 'Poziom aktywności fizycznej został zapisany.');
     }
 
     public function saveSettings(Request $request)
@@ -136,27 +161,55 @@ class AccountController extends Controller
         $user = Auth::user();
 
         if (!$user) {
-            return redirect()->back()->with('error', 'Musisz być zalogowany, aby zapisać ustawienia.');
+            return response()->json(['success' => false, 'message' => 'Musisz być zalogowany, aby zapisać ustawienia.'], 401);
         }
 
-        $user->disable_ads = $request->has('settings') && in_array('reklamy', $request->input('settings'));
-        $user->disable_emails = $request->has('settings') && in_array('maile', $request->input('settings'));
+        $disableAds = $request->has('settings') && in_array('reklamy', $request->input('settings'));
+        $disableEmails = $request->has('settings') && in_array('maile', $request->input('settings'));
+
+        $user->disable_ads = $disableAds;
+        $user->disable_emails = $disableEmails;
         $user->save();
 
-        return redirect()->back()->with('success', 'Ustawienia zostały zapisane.');
     }
 
     public function saveTheme(Request $request)
     {
+
         $request->validate([
             'theme' => 'required|in:default,themeA,themeB,themeC',
         ]);
 
+
         $user = Auth::user();
+
         $user->theme = $request->input('theme');
         $user->save();
 
-        return redirect()->back()->with('success', 'Szablon został zapisany.');
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Szablon został zapisany.'
+        ]);
+    }
+
+    public function saveBackground(Request $request)
+    {
+        $user = Auth::user();
+
+        if ($request->hasFile('top_image')) {
+            $path = $request->file('top_image')->store('public/backgrounds');
+            $user->top_image = str_replace('public/', '/storage/', $path);
+        }
+
+        if ($request->hasFile('bottom_image')) {
+            $path = $request->file('bottom_image')->store('public/backgrounds');
+            $user->bottom_image = str_replace('public/', '/storage/', $path);
+        }
+
+        $user->save();
+
+        return response()->json(['success' => true, 'message' => 'Obrazy zostały zapisane.']);
     }
 
 
