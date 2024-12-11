@@ -131,6 +131,35 @@ class AccountController extends Controller
         return redirect()->back()->with('success', 'Poziom aktywności fizycznej został zapisany.');
     }
 
+    public function saveSettings(Request $request)
+    {
+        $user = Auth::user();
+
+        if (!$user) {
+            return redirect()->back()->with('error', 'Musisz być zalogowany, aby zapisać ustawienia.');
+        }
+
+        $user->disable_ads = $request->has('settings') && in_array('reklamy', $request->input('settings'));
+        $user->disable_emails = $request->has('settings') && in_array('maile', $request->input('settings'));
+        $user->save();
+
+        return redirect()->back()->with('success', 'Ustawienia zostały zapisane.');
+    }
+
+    public function saveTheme(Request $request)
+    {
+        $request->validate([
+            'theme' => 'required|in:default,themeA,themeB,themeC',
+        ]);
+
+        $user = Auth::user();
+        $user->theme = $request->input('theme');
+        $user->save();
+
+        return redirect()->back()->with('success', 'Szablon został zapisany.');
+    }
+
+
 
 }
 

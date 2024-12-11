@@ -20,4 +20,7 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/account/family/{id}', [AccountController::class, 'destroyFamilyMember'])->name('family.destroy');
     Route::post('/allergens/save', [App\Http\Controllers\AccountController::class, 'saveAllergens'])->name('allergens.save');
     Route::post('/physical-activity', [AccountController::class, 'savePhysicalActivity'])->name('physicalActivity.save');
+    Route::post('/settings/save', [AccountController::class, 'saveSettings'])->name('settings.save');
+    Route::post('/settings/saveTheme', [AccountController::class, 'saveTheme'])->name('settings.saveTheme');
+
 });

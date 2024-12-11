@@ -1,239 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+
     <style>
-        body {
-            background-color: #f4f7fc;
-            font-family: 'Arial', sans-serif;
-            color: #333;
-        }
 
-        .container {
-            max-width: 1200px;
-            margin: auto;
-        }
-
-        .card {
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            margin-bottom: 30px;
-        }
-
-        .card-header {
-            font-size: 24px;
-            text-align: left;
-            font-weight: bold;
-            margin-bottom: 20px;
-            color: #2c3e50;
-        }
-
-        .btn-success {
-            background-color: #28a745;
-            border: none;
-            color: white;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
-            padding: 10px 10px;
-            font-size: 16px;
-            border-radius: 8px;
-            width: 20%;
-        }
-
-        .btn-success:hover {
-            background-color: #218838;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .form-label {
-            font-size: 14px;
-            font-weight: bold;
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        .form-control, .form-select {
-            border-radius: 5px;
-            padding: 10px;
-            margin-bottom: 10px;
-            width: 100%;
-        }
-
-        .form-section {
-            margin-top: 40px;
-        }
-
-        .form-section-title {
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 20px;
-            color: #34495e;
-        }
-
-        .radio-group {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .two-columns {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-        }
-
-        @media (max-width: 768px) {
-            .two-columns {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        input {
-            max-width: 400px;
-        }
-
-        select {
-            max-width: 400px;
-        }
-
-        .allergens-container {
-            margin-top: 20px;
-        }
-
-        .category {
-            cursor: pointer;
-            padding: 10px;
-            background-color: #f7f7f7;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            margin-bottom: 5px;
-        }
-
-        .category .subcategory {
-            display: none;
-            margin-left: 20px;
-        }
-
-        .subcategory input {
-            margin-right: 5px;
-        }
-
-        .toggle-switch {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-
-        .toggle-switch input {
-            width: 50px;
-            height: 25px;
-            cursor: pointer;
-        }
-
-        .allergy-toggle {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-family: 'Arial', sans-serif;
-            font-size: 18px;
-            font-weight: bold;
-            color: #000;
-        }
-
-        .switch {
-            position: relative;
-            display: inline-block;
-            width: 50px;
-            height: 24px;
-        }
-
-        .switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #ccc;
-            transition: 0.4s;
-            border-radius: 24px;
-        }
-
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 18px;
-            width: 18px;
-            left: 3px;
-            bottom: 3px;
-            background-color: white;
-            transition: 0.4s;
-            border-radius: 50%;
-        }
-
-        input:checked + .slider {
-            background-color: #d4f22d;
-        }
-
-        input:checked + .slider:before {
-            transform: translateX(26px);
-        }
-
-        .allergy-toggle .switch:before {
-            content: "nie";
-            position: absolute;
-            left: -30px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 14px;
-            color: #777;
-        }
-
-        .allergy-toggle .switch:after {
-            content: "tak";
-            position: absolute;
-            right: -30px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 14px;
-            color: #000;
-        }
-
-        .toggle-icon {
-            font-size: 18px;
-            margin-left: 10px;
-            transition: transform 0.3s ease;
-        }
-
-        .toggle-icon.open {
-            transform: rotate(90deg);
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            margin-left: 8px;
-            font-size: 1rem;
-        }
-
-        input[type="radio"] {
-            margin-right: 10px;
-        }
 
     </style>
 
@@ -275,7 +45,7 @@
                     <input id="postal_code" type="text" class="form-control" name="postal_code" value="{{ old('postal_code', Auth::user()->postal_code) }}">
                 </div>
 
-                <button type="submit" class="btn btn-success">{{ __('Zapisz') }}</button>
+                <button type="submit" class=" btn-success">{{ __('Zapisz') }}</button>
             </form>
 
 
@@ -371,7 +141,7 @@
                 </div>
 
                 <div class="text-center mt-4">
-                    <button type="submit" class="btn btn-success">Zapisz ankietę</button>
+                    <button type="submit" class=" btn-success">Zapisz ankietę</button>
                 </div>
             </form>
 
@@ -421,7 +191,7 @@
                     @endforeach
                     </tbody>
                 </table>
-                <button class="btn btn-success mt-3" onclick="showInvitePopup()">Zaproś kolejną osobę</button>
+                <button class=" btn-success mt-3" onclick="showInvitePopup()">Zaproś kolejną osobę</button>
             </div>
 
 
@@ -437,10 +207,11 @@
                     <label for="email">E-mail</label>
                     <input type="email" class="form-control" id="email" name="email" required>
                 </div>
-                <button type="submit" class="btn btn-success mt-2">Wyślij zaproszenie</button>
-                <button type="button" class="btn btn-secondary mt-2" onclick="hideInvitePopup()">Anuluj</button>
+                <button type="submit" class=" btn-success mt-2">Wyślij zaproszenie</button>
+                <button type="button" class=" btn-secondary mt-2" onclick="hideInvitePopup()">Anuluj</button>
             </form>
         </div>
+        <br><br>
 
         <script>
             function showInvitePopup() {
@@ -452,7 +223,7 @@
             }
         </script>
 
-        <div class="card">
+
             <div class="card-header">Alergeny i Nietolerancje Pokarmowe</div>
             <div class="card-body">
                 <div class="allergy-toggle">
@@ -535,11 +306,11 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-success mt-3">Zapisz</button>
+                        <button type="submit" class=" btn-success mt-3">Zapisz</button>
                     </form>
                 </div>
             </div>
-        </div>
+        <br><br>
 
         <script>
 
@@ -621,12 +392,12 @@
             });
         </script>
 
-        <div class="card">
+
             <div class="card-header">Aktywność fizyczna</div>
             <div class="card-body">
                 <form method="POST" action="{{ route('physicalActivity.save') }}">
                     @csrf
-                    <h3>Aktywność fizyczna</h3>
+
 
                     <label>
                         <input type="radio" name="activity_level" value="sitting"
@@ -658,11 +429,71 @@
                             {{ old('activity_level', Auth::user()->activity_level) == 'very_high' ? 'checked' : '' }}> Bardzo wysoka aktywność (ciężkie prace budowlane)
                     </label><br>
 
-                    <button type="submit" class="btn btn-primary mt-3">Zapisz</button>
+                    <button type="submit" class=" btn-success mt-3">Zapisz</button>
                 </form>
 
             </div>
-        </div>
+
+
+
+            <div class="card-header">Ustawienia serwisu</div>
+            <div class="card-body syf">
+                <form method="POST" action="{{ route('settings.save') }}">
+                    @csrf
+                    <input type="checkbox" name="settings[]" value="reklamy"
+                        {{ Auth::user()->disable_ads ? 'checked' : '' }}>
+                    Wyłącz reklamy w serwisie <br>
+                    <span style="margin-left: 20px; font-size: 14px; font-weight: 200; color: gray;">Tu można wyłączyć reklamy w serwisie</span>
+                    <br>
+
+                    <input type="checkbox" name="settings[]" value="maile"
+                        {{ Auth::user()->disable_emails ? 'checked' : '' }}>
+                    Wyłącz powiadomienia mailowe wysyłane z serwisu <br>
+                    <span style="margin-left: 20px; font-size: 14px; font-weight: 200; color: gray;">Tu można wyłączyć maile wysyłane z serwisu</span>
+                    <br>
+                    <br>
+
+                    <button type="submit" class=" btn-success">Zapisz ustawienia</button>
+                </form>
+            </div>
+
+
+            <div class="card-header">Szablon kolorystyczny</div>
+            <div class="card-body">
+                <form method="POST" action="{{ route('settings.saveTheme') }}">
+                    @csrf
+                    <label>
+                        <input type="radio" name="theme" value="default"
+                            {{ Auth::user()->theme === 'default' ? 'checked' : '' }}>
+                        <img src="/images/theme_default.png" alt="Domyślny szablon">
+                        Domyślny szablon
+                    </label>
+                    <br>
+                    <label>
+                        <input type="radio" name="theme" value="themeA"
+                            {{ Auth::user()->theme === 'themeA' ? 'checked' : '' }}>
+                        <img src="/images/theme_a.png" alt="Szablon A">
+                        Szablon A
+                    </label>
+                    <br>
+                    <label>
+                        <input type="radio" name="theme" value="themeB"
+                            {{ Auth::user()->theme === 'themeB' ? 'checked' : '' }}>
+                        <img src="/images/theme_b.png" alt="Szablon B">
+                        Szablon B
+                    </label>
+                    <br>
+                    <label>
+                        <input type="radio" name="theme" value="themeC"
+                            {{ Auth::user()->theme === 'themeC' ? 'checked' : '' }}>
+                        <img src="/images/theme_c.png" alt="Szablon C">
+                        Szablon C
+                    </label>
+                    <br>
+                    <button type="submit" class=" btn-success">Zapisz szablon</button>
+                </form>
+            </div>
+
 
 
 
