@@ -9,7 +9,10 @@
 
     <div class="container">
         <div class="top-image">
-            <img src="{{ Auth::user()->top_image ?? '/backgrounds/default_top_image.jpg' }}" alt="Top Image" style="width: 100%;">
+            <img
+                src="{{ Auth::user()->top_image ?? '/backgrounds/default_top_image.jpg' }}"
+                alt="Top Image"
+                style="width: 1200px; height: 100px;">
         </div>
 
             <div class="card-header"><h1>{{ __('Dane do logowania') }}</h1></div>
@@ -609,25 +612,25 @@
                 <label>
                     <input type="radio" name="theme" value="default"
                            {{ Auth::user()->theme === 'default' ? 'checked' : '' }} onchange="submitTheme();">
-                    <img src="/images/theme_default.png" alt="Domyślny szablon">
+                    <img src="/images/theme_default.png" alt="Domyślny szablon" class="zdjecie">
                 </label>
                 <br>
                 <label>
                     <input type="radio" name="theme" value="themeA"
                            {{ Auth::user()->theme === 'themeA' ? 'checked' : '' }} onchange="submitTheme();">
-                    <img src="/images/theme_a.png" alt="Szablon A">
+                    <img src="/images/theme_a.png" alt="Szablon A" class="zdjecie">
                 </label>
                 <br>
                 <label>
                     <input type="radio" name="theme" value="themeB"
                            {{ Auth::user()->theme === 'themeB' ? 'checked' : '' }} onchange="submitTheme();">
-                    <img src="/images/theme_b.png" alt="Szablon B">
+                    <img src="/images/theme_b.png" alt="Szablon B" class="zdjecie">
                 </label>
                 <br>
                 <label>
                     <input type="radio" name="theme" value="themeC"
                            {{ Auth::user()->theme === 'themeC' ? 'checked' : '' }} onchange="submitTheme();">
-                    <img src="/images/theme_c.png" alt="Szablon C">
+                    <img src="/images/theme_c.png" alt="Szablon C" class="zdjecie">
 
                 </label>
                 <br>
@@ -676,9 +679,10 @@
                     <label for="bottom_image" class="form-label">Zdjęcie na dole strony</label>
                     <input type="file" id="bottom_image" name="bottom_image" class="form-control">
                 </div>
-                <button type="submit" class="btn btn-success">Zapisz obraz tła</button>
+                <button type="submit" class="btn-success">Zapisz obraz tła</button>
             </form>
         </div>
+
         <script>
             document.getElementById('backgroundImageForm').addEventListener('submit', function (e) {
                 e.preventDefault();
@@ -707,7 +711,10 @@
 
 
         <div class="bottom-image">
-            <img src="{{ Auth::user()->bottom_image ?? '/backgrounds/default_bottom_image.jpg' }}" alt="Bottom Image" style="width: 100%;">
+            <img
+                src="{{ Auth::user()->bottom_image ?? '/backgrounds/default_bottom_image.jpg' }}"
+                alt="Bottom Image"
+                style="width: 1200px; height: 100px;">
         </div>
 
     </div>

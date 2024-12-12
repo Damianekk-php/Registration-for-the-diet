@@ -281,7 +281,7 @@ input[type="radio"] {
     margin-left: 10px;
 }
 
-img {
+.zdjecie {
     max-width: 200px;
     height: auto;
     margin-bottom: 10px;
@@ -290,6 +290,6 @@ img {
     transition: border-color 0.3s ease, transform 0.3s ease;
 }
 
-img:hover {
+.zdjecie:hover {
     transform: scale(1.03);
 }

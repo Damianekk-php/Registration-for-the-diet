@@ -199,12 +199,12 @@ class AccountController extends Controller
 
         if ($request->hasFile('top_image')) {
             $path = $request->file('top_image')->store('public/backgrounds');
-            $user->top_image = str_replace('public/', '/storage/', $path);
+            $user->top_image = str_replace('public/', '/storage/public/', $path);
         }
 
         if ($request->hasFile('bottom_image')) {
             $path = $request->file('bottom_image')->store('public/backgrounds');
-            $user->bottom_image = str_replace('public/', '/storage/', $path);
+            $user->bottom_image = str_replace('public/', '/storage/public/', $path);
         }
 
         $user->save();
