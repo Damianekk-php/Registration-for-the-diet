@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -24,5 +25,12 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/settings/saveTheme', [AccountController::class, 'saveTheme'])->name('settings.saveTheme');
     Route::get('/allergens', [AccountController::class, 'getAllergens'])->name('allergens.get');
     Route::post('/settings/saveBackground', [AccountController::class, 'saveBackground'])->name('settings.saveBackground');
+    Route::get('/members/{email}/details', [AccountController::class, 'detailsByEmail'])->name('members.detailsByEmail');
 
+
+
+});
+
+Route::middleware(['auth', 'isAdmin'])->group(function () {
+    Route::get('/admin/users', [AdminController::class, 'index'])->name('admin.users');
 });

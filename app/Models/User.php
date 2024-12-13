@@ -45,4 +45,14 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function allergens()
+    {
+        return $this->hasMany(UserAllergen::class);
+    }
+
+    public function survey()
+    {
+        return $this->hasOne(Survey::class);
+    }
 }

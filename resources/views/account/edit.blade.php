@@ -204,6 +204,7 @@
                         <th>Imię / Nick</th>
                         <th>Adres e-mail</th>
                         <th>Status</th>
+                        <th>Akcja</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -212,6 +213,13 @@
                             <td>{{ $member->name }}</td>
                             <td>{{ $member->email }}</td>
                             <td>{{ $member->status }}</td>
+                            <td>@if($member->status === 'Aktywny')
+                                    <a href="{{ route('members.detailsByEmail', ['email' => $member->email]) }}">
+                                        <span style="font-size: 1.5em; cursor: pointer;">🔍</span>
+                                    </a>
+                                @else
+                                    <span style="font-size: 1.5em; color: grey; cursor: not-allowed;">🔍</span>
+                                @endif</td>
                             <td>
                                 <form action="{{ route('family.destroy', $member->id) }}" method="POST" onsubmit="return confirm('Czy na pewno chcesz usunąć tego członka rodziny?');">
                                     @csrf

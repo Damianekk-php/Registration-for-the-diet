@@ -293,3 +293,16 @@ input[type="radio"] {
 .zdjecie:hover {
     transform: scale(1.03);
 }
+
+.emoji {
+    font-size: 24px;
+}
+
+.emoji.inactive {
+    color: gray;
+    cursor: not-allowed;
+}
+
+.emoji.active {
+    cursor: pointer;
+}

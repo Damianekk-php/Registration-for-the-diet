@@ -212,6 +212,13 @@ class AccountController extends Controller
         return response()->json(['success' => true, 'message' => 'Obrazy zostały zapisane.']);
     }
 
+    public function detailsByEmail($email)
+    {
+        $member = family::where('email', $email)->firstOrFail();
+
+        return view('members.details', compact('member'));
+    }
+
 
 
 }
