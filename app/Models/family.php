@@ -16,5 +16,6 @@ class family extends Model
         'name',
         'email',
         'status',
+        'activation_token',
     ];
 }

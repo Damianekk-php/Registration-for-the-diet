@@ -30,6 +30,8 @@ Route::middleware(['auth'])->group(function () {
 
 
 });
+Route::get('/family/activate/{token}', [AccountController::class, 'activateFamilyMember'])->name('family.activate');
+Route::post('/account/family/invite', [AccountController::class, 'inviteFamilyMember'])->name('account.family.invite');
 
 Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('/admin/users', [AdminController::class, 'index'])->name('admin.users');

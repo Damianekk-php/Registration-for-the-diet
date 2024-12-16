@@ -65,8 +65,8 @@
         <form id="surveyForm" method="POST" action="{{ route('account.survey.store') }}">
             @csrf
             <div class="mb-4 test" style="font-size: 16px">
-                <input type="radio" id="gender_male" name="gender" style="opacity: 100%;" value="Mężczyzna" onchange="togglePregnancyFields()" checked="check"> Mężczyzna
-                <input type="radio" id="gender_female" name="gender" style="opacity: 100%;" value="Kobieta" onchange="togglePregnancyFields()"> Kobieta
+                <input type="radio" id="gender_male" name="gender" style="opacity: 100%;" value="male" onchange="togglePregnancyFields()" checked="check"> Mężczyzna
+                <input type="radio" id="gender_female" name="gender" style="opacity: 100%;" value="female" onchange="togglePregnancyFields()"> Kobieta
             </div>
 
             <div class="row">
@@ -90,6 +90,7 @@
                         <div class="mb-3">
                             <label>Czy jesteś w ciąży lub karmisz piersią?</label><br>
                             <input type="radio" id="is_pregnant_yes" name="is_pregnant" value="1" onchange="togglePregnancyDetails()"> Jestem w ciąży
+                            <input type="radio" id="is_breastfeeding" name="is_pregnant" value="2" onchange="togglePregnancyDetails()"> Karmię piersią
                             <input type="radio" id="is_pregnant_no" name="is_pregnant" value="0" onchange="togglePregnancyDetails()"> Nie
                         </div>
                         <div id="pregnancy_details" style="display: none;">
@@ -103,6 +104,12 @@
                             </div>
                             <div class="mb-3">
                                 <label for="delivery_date" class="form-label">Data porodu</label>
+                                <input type="date" id="delivery_date" name="delivery_date" class="form-control">
+                            </div>
+                        </div>
+                        <div id="breastfeeding_details" style="display: none;">
+                            <div class="mb-3">
+                                <label for="delivery_date">Data porodu:</label>
                                 <input type="date" id="delivery_date" name="delivery_date" class="form-control">
                             </div>
                         </div>
@@ -152,13 +159,15 @@
         <script>
             function togglePregnancyFields() {
                 const gender = document.querySelector('input[name="gender"]:checked')?.value;
-                document.getElementById('pregnancy_fields').style.display = (gender === 'Kobieta') ? 'block' : 'none';
+                document.getElementById('pregnancy_fields').style.display = (gender === 'female') ? 'block' : 'none';
                 togglePregnancyDetails();
             }
 
             function togglePregnancyDetails() {
                 const isPregnant = document.querySelector('input[name="is_pregnant"]:checked')?.value;
+
                 document.getElementById('pregnancy_details').style.display = (isPregnant === '1') ? 'block' : 'none';
+                document.getElementById('breastfeeding_details').style.display = (isPregnant === '2') ? 'block' : 'none';
             }
 
             document.addEventListener('DOMContentLoaded', function() {
@@ -724,6 +733,10 @@
                 alt="Bottom Image"
                 style="width: 1200px; height: 100px;">
         </div>
+
+        <a href="{{ route('admin.users') }}" class="btn btn-primary">
+            Przejdź na strone listy
+        </a>
 
     </div>
 @endsection

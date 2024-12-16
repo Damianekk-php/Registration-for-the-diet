@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\family;
 use App\Models\FamilyMember;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Survey;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class AccountController extends Controller
 {
@@ -88,14 +90,19 @@ class AccountController extends Controller
             'email' => 'required|email|unique:family,email',
         ]);
 
-        family::create([
+        $activationToken = Str::random(32);
+
+        $familyMember = family::create([
             'user_id' => Auth::id(),
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
             'status' => 'Nieaktywny',
+            'activation_token' => $activationToken,
         ]);
 
-        return redirect()->route('account.edit')->with('success', 'Zaproszenie zostało wysłane.');
+        $activationLink = route('family.activate', ['token' => $activationToken]);
+
+        return view('family.invitation_link', compact('familyMember', 'activationLink'));
     }
 
     public function destroyFamilyMember($id)
@@ -214,10 +221,33 @@ class AccountController extends Controller
 
     public function detailsByEmail($email)
     {
-        $member = family::where('email', $email)->firstOrFail();
 
-        return view('members.details', compact('member'));
+        $member = Family::where('email', $email)->firstOrFail();
+
+
+        $user = User::where('email', $email)->first();
+
+        $survey = null;
+        if ($user) {
+            $survey = $user->survey()->first();
+        }
+
+        return view('members.details', compact('member', 'user', 'survey'));
     }
+
+
+    public function activateFamilyMember($token)
+    {
+        $familyMember = family::where('activation_token', $token)->firstOrFail();
+
+        $familyMember->update([
+            'status' => 'Aktywny',
+            'activation_token' => null,
+        ]);
+
+        return redirect()->route('account.edit')->with('success', 'Członek rodziny został pomyślnie aktywowany.');
+    }
+
 
 
 

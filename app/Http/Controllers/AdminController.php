@@ -1,6 +1,6 @@
 <?php
 
-// app/Http/Controllers/AdminController.php
+
 
 namespace App\Http\Controllers;
 
@@ -11,30 +11,33 @@ class AdminController extends Controller
 {
     public function index(Request $request)
     {
-        // Pobieranie filtrów z zapytania
-        $gender = $request->input('gender');
-        $country = $request->input('country');
-        $activity_level = $request->input('activity_level');
-
-        // Budowanie zapytania, które uwzględnia filtry
         $query = User::with(['allergens', 'survey']);
 
-        if ($gender) {
-            $query->whereHas('survey', function ($q) use ($gender) {
-                $q->where('gender', $gender);
+        if ($request->filled('gender')) {
+            $query->whereHas('survey', function ($q) use ($request) {
+                $q->where('gender', $request->gender);
             });
         }
 
-        if ($country) {
-            $query->where('country', $country);
+        if ($request->filled('country')) {
+            $query->where('country', $request->country);
         }
 
-        if ($activity_level) {
-            $query->where('activity_level', $activity_level);
+        if ($request->filled('activity_level')) {
+            $query->where('activity_level', $request->activity_level);
         }
 
-        // Wykonanie zapytania
-        $users = $query->get();
+        if ($request->filled('allergen')) {
+            $query->whereHas('allergens', function ($q) use ($request) {
+                if ($request->allergen === 'wszystkie_rodzaje') {
+                    $q->where('allergen', '!=', null);
+                } else {
+                    $q->where('allergen', $request->allergen);
+                }
+            });
+        }
+
+        $users = $query->paginate(10);
 
         return view('admin.users', compact('users'));
     }
