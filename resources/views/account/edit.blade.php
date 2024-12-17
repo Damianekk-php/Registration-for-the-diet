@@ -15,101 +15,98 @@
                 style="width: 1200px; height: 100px;">
         </div>
 
-            <div class="card-header"><h1>{{ __('Dane do logowania') }}</h1></div>
-            <div class="pod"></div>
-            <form method="POST" action="{{ route('account.update') }}">
-                @csrf
-                <div class="form-group">
-                    <label for="name" class="form-label">{{ __('Imię / Nick') }}</label>
-                    <input id="name" type="text" class="form-control" name="name" value="{{ old('name', Auth::user()->name) }}" required>
-                </div>
+        <div class="card-header"><h1>{{ __('messages.login_data') }}</h1></div>
+        <div class="pod"></div>
+        <form method="POST" action="{{ route('account.update') }}">
+            @csrf
+            <div class="form-group">
+                <label for="name" class="form-label">{{ __('messages.name') }}</label>
+                <input id="name" type="text" class="form-control" name="name" value="{{ old('name', Auth::user()->name) }}" required>
+            </div>
 
-                <div class="form-group">
-                    <label for="email" class="form-label">{{ __('Adres e-mail') }}</label>
-                    <input id="email" type="email" class="form-control" name="email" value="{{ old('email', Auth::user()->email) }}" required>
-                </div>
+            <div class="form-group">
+                <label for="email" class="form-label">{{ __('messages.email') }}</label>
+                <input id="email" type="email" class="form-control" name="email" value="{{ old('email', Auth::user()->email) }}" required>
+            </div>
 
-                <div class="form-group">
-                    <label for="password" class="form-label">{{ __('Nowe hasło') }}</label>
-                    <input id="password" type="password" class="form-control" name="password">
-                </div>
+            <div class="form-group">
+                <label for="password" class="form-label">{{ __('messages.new_password') }}</label>
+                <input id="password" type="password" class="form-control" name="password">
+            </div>
 
-                <div class="form-group">
-                    <label for="password_confirmation" class="form-label">{{ __('Potwierdź hasło') }}</label>
-                    <input id="password_confirmation" type="password" class="form-control" name="password_confirmation">
-                </div>
+            <div class="form-group">
+                <label for="password_confirmation" class="form-label">{{ __('messages.confirm_password') }}</label>
+                <input id="password_confirmation" type="password" class="form-control" name="password_confirmation">
+            </div>
 
-                <div class="form-group">
-                    <label for="country" class="form-label">{{ __('Kraj') }}</label>
-                    <select id="country" class="form-select" name="country">
-                        <option value="Polska" {{ old('country', Auth::user()->country) == 'Polska' ? 'selected' : '' }}>Polska</option>
-                        <option value="Niemcy" {{ old('country', Auth::user()->country) == 'Niemcy' ? 'selected' : '' }}>Niemcy</option>
-                    </select>
-                </div>
+            <div class="form-group">
+                <label for="country" class="form-label">{{ __('messages.country') }}</label>
+                <select id="country" class="form-select" name="country">
+                    <option value="Polska" {{ old('country', Auth::user()->country) == 'Polska' ? 'selected' : '' }}>Polska</option>
+                    <option value="Niemcy" {{ old('country', Auth::user()->country) == 'Niemcy' ? 'selected' : '' }}>Niemcy</option>
+                </select>
+            </div>
 
-                <div class="form-group">
-                    <label for="postal_code" class="form-label">{{ __('Kod pocztowy') }}</label>
-                    <input id="postal_code" type="text" class="form-control" name="postal_code" value="{{ old('postal_code', Auth::user()->postal_code) }}">
-                </div>
+            <div class="form-group">
+                <label for="postal_code" class="form-label">{{ __('messages.postal_code') }}</label>
+                <input id="postal_code" type="text" class="form-control" name="postal_code" value="{{ old('postal_code', Auth::user()->postal_code) }}">
+            </div>
 
-                <button type="submit" class=" btn-success">{{ __('Zapisz') }}</button>
-            </form>
-            <br>
-            <br>
-            <br>
-            <br>
+            <button type="submit" class="btn btn-success">{{ __('messages.save') }}</button>
+        </form>
+        <br><br><br><br>
 
-
-        <div class="card-header"><h1>{{ __('Ankieta') }}</h1></div>
+        <div class="card-header"><h1>{{ __('messages.survey') }}</h1></div>
         <div class="pod"></div>
         <form id="surveyForm" method="POST" action="{{ route('account.survey.store') }}">
             @csrf
             <div class="mb-4 test" style="font-size: 16px">
-                <input type="radio" id="gender_male" name="gender" style="opacity: 100%;" value="male" onchange="togglePregnancyFields()" checked="check"> Mężczyzna
-                <input type="radio" id="gender_female" name="gender" style="opacity: 100%;" value="female" onchange="togglePregnancyFields()"> Kobieta
+                <input type="radio" id="gender_male" name="gender" style="opacity: 100%;" value="male" onchange="togglePregnancyFields()" checked="check"> {{ __('messages.male') }}
+                <input type="radio" id="gender_female" name="gender" style="opacity: 100%;" value="female" onchange="togglePregnancyFields()"> {{ __('messages.female') }}
             </div>
 
             <div class="row">
                 <div class="col-md-6">
-                    <h4 class="mb-3">Dane obowiązkowe</h4>
+                    <h4 class="mb-3">{{ __('messages.required_data') }}</h4>
                     <div class="mb-3">
-                        <label for="height" class="form-label">Wzrost (cm)</label>
+                        <label for="height" class="form-label">{{ __('messages.height') }}</label>
                         <input type="number" id="height" name="height" class="form-control" value="{{ old('height', Auth::user()->height ?? '') }}">
                     </div>
 
                     <div class="mb-3">
-                        <label for="weight" class="form-label">Waga (kg)</label>
+                        <label for="weight" class="form-label">{{ __('messages.weight') }}</label>
                         <input type="number" id="weight" name="weight" class="form-control" value="{{ old('weight', Auth::user()->weight ?? '') }}">
                     </div>
 
                     <div class="mb-3">
-                        <label for="age" class="form-label">Wiek</label>
+                        <label for="age" class="form-label">{{ __('messages.age') }}</label>
                         <input type="number" id="age" name="age" class="form-control" value="{{ old('age', Auth::user()->age ?? '') }}">
                     </div>
+
                     <div id="pregnancy_fields" style="display: none;">
                         <div class="mb-3">
-                            <label>Czy jesteś w ciąży lub karmisz piersią?</label><br>
-                            <input type="radio" id="is_pregnant_yes" name="is_pregnant" value="1" onchange="togglePregnancyDetails()"> Jestem w ciąży
-                            <input type="radio" id="is_breastfeeding" name="is_pregnant" value="2" onchange="togglePregnancyDetails()"> Karmię piersią
-                            <input type="radio" id="is_pregnant_no" name="is_pregnant" value="0" onchange="togglePregnancyDetails()"> Nie
+                            <label>{{ __('messages.pregnancy') }}</label><br>
+                            <input type="radio" id="is_pregnant_yes" name="is_pregnant" value="1" onchange="togglePregnancyDetails()"> {{ __('messages.pregnant') }}
+                            <input type="radio" id="is_breastfeeding" name="is_pregnant" value="2" onchange="togglePregnancyDetails()"> {{ __('messages.breastfeeding') }}
+                            <input type="radio" id="is_pregnant_no" name="is_pregnant" value="0" onchange="togglePregnancyDetails()"> {{ __('messages.not_pregnant') }}
                         </div>
                         <div id="pregnancy_details" style="display: none;">
                             <div class="mb-3">
-                                <label for="pregnancy_week" class="form-label">Tydzień ciąży</label>
+                                <label for="pregnancy_week" class="form-label">{{ __('messages.pregnancy_week') }}</label>
                                 <input type="number" id="pregnancy_week" name="pregnancy_week" class="form-control">
                             </div>
                             <div class="mb-3">
-                                <label for="pre_pregnancy_weight" class="form-label">Waga sprzed ciąży (kg)</label>
+                                <label for="pre_pregnancy_weight" class="form-label">{{ __('messages.pre_pregnancy_weight') }}</label>
                                 <input type="number" id="pre_pregnancy_weight" name="pre_pregnancy_weight" class="form-control">
                             </div>
                             <div class="mb-3">
-                                <label for="delivery_date" class="form-label">Data porodu</label>
+                                <label for="delivery_date" class="form-label">{{ __('messages.delivery_date') }}</label>
                                 <input type="date" id="delivery_date" name="delivery_date" class="form-control">
                             </div>
                         </div>
                         <div id="breastfeeding_details" style="display: none;">
                             <div class="mb-3">
-                                <label for="delivery_date">Data porodu:</label>
+                                <label for="delivery_date">{{ __('messages.delivery_date') }}:</label>
                                 <input type="date" id="delivery_date" name="delivery_date" class="form-control">
                             </div>
                         </div>
@@ -117,43 +114,41 @@
                 </div>
 
                 <div class="col-md-6">
-                    <h4 class="mb-3">Dane opcjonalne</h4>
+                    <h4 class="mb-3">{{ __('messages.optional_data') }}</h4>
                     <div class="mb-3">
-                        <label for="waist_circumference" class="form-label">Obwód pasa (cm)</label>
+                        <label for="waist_circumference" class="form-label">{{ __('messages.waist_circumference') }}</label>
                         <input type="number" id="waist_circumference" name="waist_circumference" class="form-control">
                     </div>
                     <div class="mb-3">
-                        <label for="hip_circumference" class="form-label">Obwód bioder (cm)</label>
+                        <label for="hip_circumference" class="form-label">{{ __('messages.hip_circumference') }}</label>
                         <input type="number" id="hip_circumference" name="hip_circumference" class="form-control">
                     </div>
                     <div class="mb-3">
-                        <label for="bust_circumference" class="form-label">Obwód biustu (cm)</label>
+                        <label for="bust_circumference" class="form-label">{{ __('messages.bust_circumference') }}</label>
                         <input type="number" id="bust_circumference" name="bust_circumference" class="form-control">
                     </div>
                     <div class="mb-3">
-                        <label for="neck_circumference" class="form-label">Obwód szyi (cm)</label>
+                        <label for="neck_circumference" class="form-label">{{ __('messages.neck_circumference') }}</label>
                         <input type="number" id="neck_circumference" name="neck_circumference" class="form-control">
                     </div>
                     <div class="mb-3">
-                        <label for="wrist_circumference" class="form-label">Obwód nadgarstka (cm)</label>
+                        <label for="wrist_circumference" class="form-label">{{ __('messages.wrist_circumference') }}</label>
                         <input type="number" id="wrist_circumference" name="wrist_circumference" class="form-control">
                     </div>
                     <div class="mb-3">
-                        <label for="bicep_circumference" class="form-label">Obwód bicepsa (cm)</label>
+                        <label for="bicep_circumference" class="form-label">{{ __('messages.bicep_circumference') }}</label>
                         <input type="number" id="bicep_circumference" name="bicep_circumference" class="form-control">
                     </div>
                     <div class="mb-3">
-                        <label for="thigh_circumference" class="form-label">Obwód uda (cm)</label>
+                        <label for="thigh_circumference" class="form-label">{{ __('messages.thigh_circumference') }}</label>
                         <input type="number" id="thigh_circumference" name="thigh_circumference" class="form-control">
                     </div>
                     <div class="mb-3">
-                        <label for="calf_circumference" class="form-label">Obwód łydki (cm)</label>
+                        <label for="calf_circumference" class="form-label">{{ __('messages.calf_circumference') }}</label>
                         <input type="number" id="calf_circumference" name="calf_circumference" class="form-control">
                     </div>
-
                 </div>
             </div>
-
         </form>
 
         <script>
@@ -204,69 +199,69 @@
 
 
 
-            <div class="card-header"><h1>Rodzina</h1></div>
-            <div class="pod"></div>
-            <div class="card-body">
-                <table class="table">
-                    <thead>
+        <div class="card-header"><h1>{{ __('messages.family') }}</h1></div>
+        <div class="pod"></div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>{{ __('messages.name') }}</th>
+                    <th>{{ __('messages.email') }}</th>
+                    <th>{{ __('messages.status') }}</th>
+                    <th>{{ __('messages.action') }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($family as $member)
                     <tr>
-                        <th>Imię / Nick</th>
-                        <th>Adres e-mail</th>
-                        <th>Status</th>
-                        <th>Akcja</th>
+                        <td>{{ $member->name }}</td>
+                        <td>{{ $member->email }}</td>
+                        <td>{{ $member->status }}</td>
+                        <td>
+                            @if($member->status === 'Aktywny')
+                                <a href="{{ route('members.detailsByEmail', ['email' => $member->email]) }}">
+                                    <span style="font-size: 1.5em; cursor: pointer;">🔍</span>
+                                </a>
+                            @else
+                                <span style="font-size: 1.5em; color: grey; cursor: not-allowed;">🔍</span>
+                            @endif
+                        </td>
+                        <td>
+                            <form action="{{ route('family.destroy', $member->id) }}" method="POST" onsubmit="return confirm('{{ __('messages.confirm_delete') }}');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" style="border: none; background: none; color: red; cursor: pointer;">
+                                    ❌
+                                </button>
+                            </form>
+                        </td>
                     </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($family as $member)
-                        <tr>
-                            <td>{{ $member->name }}</td>
-                            <td>{{ $member->email }}</td>
-                            <td>{{ $member->status }}</td>
-                            <td>@if($member->status === 'Aktywny')
-                                    <a href="{{ route('members.detailsByEmail', ['email' => $member->email]) }}">
-                                        <span style="font-size: 1.5em; cursor: pointer;">🔍</span>
-                                    </a>
-                                @else
-                                    <span style="font-size: 1.5em; color: grey; cursor: not-allowed;">🔍</span>
-                                @endif</td>
-                            <td>
-                                <form action="{{ route('family.destroy', $member->id) }}" method="POST" onsubmit="return confirm('Czy na pewno chcesz usunąć tego członka rodziny?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" style="border: none; background: none; color: red; cursor: pointer;">
-                                        ❌
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                    @endforeach
-                    </tbody>
-                </table>
-                <button class=" btn-success mt-3" onclick="showInvitePopup()">Zaproś kolejną osobę</button>
-            </div>
-
+                @endforeach
+                </tbody>
+            </table>
+            <button class=" btn-success mt-3" onclick="showInvitePopup()">{{ __('messages.invite_person') }}</button>
+        </div>
 
         <div id="invitePopup" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:white; padding:20px; box-shadow:0 4px 8px rgba(0,0,0,0.1); z-index:1000;">
-            <h4>Zaproś nowego członka rodziny</h4>
+            <h4>{{ __('messages.invite_new_member') }}</h4>
             <form method="POST" action="{{ route('account.family.invite') }}">
                 @csrf
                 <div class="form-group">
-                    <label for="name">Imię</label>
+                    <label for="name">{{ __('messages.name') }}</label>
                     <input type="text" class="form-control" id="name" name="name" required>
                 </div>
                 <div class="form-group">
-                    <label for="email">E-mail</label>
+                    <label for="email">{{ __('messages.email') }}</label>
                     <input type="email" class="form-control" id="email" name="email" required>
                 </div>
-                <button type="submit" class=" btn-success mt-2" style="width: 35%;">Wyślij zaproszenie</button>
-                <button type="button" class=" btn-success mt-2" style="width: 35%;" onclick="hideInvitePopup()">Anuluj</button>
+                <button type="submit" class=" btn-success mt-2" style="width: 35%;">{{ __('messages.invite_send') }}</button>
+                <button type="button" class=" btn-success mt-2" style="width: 35%;" onclick="hideInvitePopup()">{{ __('messages.cancel') }}</button>
             </form>
         </div>
         <br>
         <br>
         <br>
         <br>
-
 
         <script>
             function showInvitePopup() {
@@ -278,14 +273,13 @@
             }
         </script>
 
-
-        <div class="card-header"><h1>Alergeny i Nietolerancje Pokarmowe</h1></div>
+        <div class="card-header"><h1>{{ __('messages.allergens') }}</h1></div>
         <div class="pod"></div>
         <div class="card-body">
             <div class="allergy-toggle">
-                <span>Alergeny i nietolerancje pokarmowe</span>
+                <span>{{ __('messages.allergy_toggle') }}</span>
                 <label class="switch">
-                    <input type="checkbox" id="allergyToggle" >
+                    <input type="checkbox" id="allergyToggle">
                     <span class="slider"></span>
                 </label>
             </div>
@@ -294,84 +288,83 @@
                 <form id="allergensForm">
                     @csrf
                     <div class="category" onclick="toggleSubcategory(this)">
-                        <span>Mleko</span>
+                        <span>{{ __('messages.milk') }}</span>
                         <span class="toggle-icon">▶</span>
                         <div class="subcategory">
                             <div class="sub-category" onclick="toggleSubSubcategory(this, event)">
-                                <span>Mleko krowie</span>
+                                <span>{{ __('messages.cow_milk') }}</span>
                                 <span class="toggle-icon">▶</span>
                                 <div class="sub-subcategory">
-                                    <label><input type="checkbox" name="allergens[]" value="wszystkie_rodzaje"> Wszystkie rodzaje</label><br>
-                                    <label><input type="checkbox" name="allergens[]" value="mleko_surowe"> Surowe</label>
+                                    <label><input type="checkbox" name="allergens[]" value="wszystkie_rodzaje"> {{ __('messages.all_types') }}</label><br>
+                                    <label><input type="checkbox" name="allergens[]" value="mleko_surowe"> {{ __('messages.raw') }}</label>
                                 </div>
                             </div>
                             <div class="sub-category" onclick="toggleSubSubcategory(this, event)">
-                                <span>Mleko kozie</span>
+                                <span>{{ __('messages.goat_milk') }}</span>
                                 <span class="toggle-icon">▶</span>
                                 <div class="sub-subcategory">
-                                    <label><input type="checkbox" name="allergens[]" value="kozie_surowe"> Surowe</label><br>
-                                    <label><input type="checkbox" name="allergens[]" value="kozie_przetworzone"> Przetworzone</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="category" onclick="toggleSubcategory(this)">
-                        <span>Orzechy</span>
-                        <span class="toggle-icon">▶</span>
-                        <div class="subcategory">
-                            <div class="sub-category" onclick="toggleSubSubcategory(this, event)">
-                                <span>Orzechy włoskie</span>
-                                <span class="toggle-icon">▶</span>
-                                <div class="sub-subcategory">
-                                    <label><input type="checkbox" name="allergens[]" value="włoskie_surowe"> Surowe</label><br>
-                                    <label><input type="checkbox" name="allergens[]" value="włoskie_prażone"> Prażone</label>
-                                </div>
-                            </div>
-                            <div class="sub-category" onclick="toggleSubSubcategory(this, event)">
-                                <span>Orzechy laskowe</span>
-                                <span class="toggle-icon">▶</span>
-                                <div class="sub-subcategory">
-                                    <label><input type="checkbox" name="allergens[]" value="laskowe_surowe"> Surowe</label><br>
-                                    <label><input type="checkbox" name="allergens[]" value="laskowe_mielone"> Mielone</label>
+                                    <label><input type="checkbox" name="allergens[]" value="kozie_surowe"> {{ __('messages.raw') }}</label><br>
+                                    <label><input type="checkbox" name="allergens[]" value="kozie_przetworzone"> {{ __('messages.roasted') }}</label>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="category" onclick="toggleSubcategory(this)">
-                        <span>Owoce</span>
+                        <span>{{ __('messages.nuts') }}</span>
                         <span class="toggle-icon">▶</span>
                         <div class="subcategory">
                             <div class="sub-category" onclick="toggleSubSubcategory(this, event)">
-                                <span>Jabłka</span>
+                                <span>{{ __('messages.walnut') }}</span>
                                 <span class="toggle-icon">▶</span>
                                 <div class="sub-subcategory">
-                                    <label><input type="checkbox" name="allergens[]" value="jabłka_surowe"> Surowe</label><br>
-                                    <label><input type="checkbox" name="allergens[]" value="jabłka_prażone"> Prażone</label>
+                                    <label><input type="checkbox" name="allergens[]" value="włoskie_surowe"> {{ __('messages.raw') }}</label><br>
+                                    <label><input type="checkbox" name="allergens[]" value="włoskie_prażone"> {{ __('messages.roasted') }}</label>
                                 </div>
                             </div>
                             <div class="sub-category" onclick="toggleSubSubcategory(this, event)">
-                                <span>Truskawki</span>
+                                <span>{{ __('messages.hazelnut') }}</span>
                                 <span class="toggle-icon">▶</span>
                                 <div class="sub-subcategory">
-                                    <label><input type="checkbox" name="allergens[]" value="truskawki_surowe"> Surowe</label><br>
-                                    <label><input type="checkbox" name="allergens[]" value="truskawki_mrożone"> Mrożone</label>
+                                    <label><input type="checkbox" name="allergens[]" value="laskowe_surowe"> {{ __('messages.raw') }}</label><br>
+                                    <label><input type="checkbox" name="allergens[]" value="laskowe_mielone"> {{ __('messages.ground') }}</label>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-
+                    <div class="category" onclick="toggleSubcategory(this)">
+                        <span>{{ __('messages.fruits') }}</span>
+                        <span class="toggle-icon">▶</span>
+                        <div class="subcategory">
+                            <div class="sub-category" onclick="toggleSubSubcategory(this, event)">
+                                <span>{{ __('messages.apples') }}</span>
+                                <span class="toggle-icon">▶</span>
+                                <div class="sub-subcategory">
+                                    <label><input type="checkbox" name="allergens[]" value="jabłka_surowe"> {{ __('messages.raw') }}</label><br>
+                                    <label><input type="checkbox" name="allergens[]" value="jabłka_prażone"> {{ __('messages.roasted') }}</label>
+                                </div>
+                            </div>
+                            <div class="sub-category" onclick="toggleSubSubcategory(this, event)">
+                                <span>{{ __('messages.strawberries') }}</span>
+                                <span class="toggle-icon">▶</span>
+                                <div class="sub-subcategory">
+                                    <label><input type="checkbox" name="allergens[]" value="truskawki_surowe"> {{ __('messages.raw') }}</label><br>
+                                    <label><input type="checkbox" name="allergens[]" value="truskawki_mrożone"> {{ __('messages.frozen') }}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </form>
 
 
                 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                 <div class="mt-5">
-                    <h4>Statystyki alergenów</h4>
+                    <h4>{{ __('messages.allergen_stats') }}</h4>
                     @if ($allergenStats->isNotEmpty())
                         <canvas id="allergenStatsChart" style="max-width: 400px; max-height: 400px;"></canvas>
                     @else
-                        <p>Brak danych o alergenach.</p>
+                        <p>{{ __('messages.no_data') }}</p>
                     @endif
                 </div>
                 <script>
@@ -543,39 +536,39 @@
         <br>
 
 
-        <div class="card-header"><h1>Aktywność fizyczna</h1></div>
+        <div class="card-header"><h1>{{ __('messages.fiz_activity') }}</h1></div>
         <div class="pod"></div>
         <div class="card-body">
             <form id="activityForm" method="POST" action="{{ route('physicalActivity.save') }}">
                 @csrf
                 <label>
                     <input type="radio" name="activity_level" value="sitting"
-                        {{ old('activity_level', Auth::user()->activity_level) == 'sitting' ? 'checked' : '' }}> Tryb siedzący (mało ruchu)
+                        {{ old('activity_level', Auth::user()->activity_level) == 'sitting' ? 'checked' : '' }}> {{ __('messages.sitting') }}
                 </label><br>
 
                 <label>
                     <input type="radio" name="activity_level" value="low"
-                        {{ old('activity_level', Auth::user()->activity_level) == 'low' ? 'checked' : '' }}> Niska aktywność (praca biurowa)
+                        {{ old('activity_level', Auth::user()->activity_level) == 'low' ? 'checked' : '' }}> {{ __('messages.low') }}
                 </label><br>
 
                 <label>
                     <input type="radio" name="activity_level" value="light"
-                        {{ old('activity_level', Auth::user()->activity_level) == 'light' ? 'checked' : '' }}> Lekka aktywność (prace w ogrodzie)
+                        {{ old('activity_level', Auth::user()->activity_level) == 'light' ? 'checked' : '' }}> {{ __('messages.light') }}
                 </label><br>
 
                 <label>
                     <input type="radio" name="activity_level" value="moderate"
-                        {{ old('activity_level', Auth::user()->activity_level) == 'moderate' ? 'checked' : '' }}> Średnia aktywność (prace budowlane)
+                        {{ old('activity_level', Auth::user()->activity_level) == 'moderate' ? 'checked' : '' }}> {{ __('messages.moderate') }}
                 </label><br>
 
                 <label>
                     <input type="radio" name="activity_level" value="high"
-                        {{ old('activity_level', Auth::user()->activity_level) == 'high' ? 'checked' : '' }}> Wysoka aktywność (intensywne ćwiczenia)
+                        {{ old('activity_level', Auth::user()->activity_level) == 'high' ? 'checked' : '' }}> {{ __('messages.high') }}
                 </label><br>
 
                 <label>
                     <input type="radio" name="activity_level" value="very_high"
-                        {{ old('activity_level', Auth::user()->activity_level) == 'very_high' ? 'checked' : '' }}> Bardzo wysoka aktywność (ciężkie prace budowlane)
+                        {{ old('activity_level', Auth::user()->activity_level) == 'very_high' ? 'checked' : '' }}> {{ __('messages.very_high') }}
                 </label><br>
             </form>
         </div>
@@ -614,21 +607,21 @@
 
 
 
-        <div class="card-header"><h1>Ustawienia serwisu</h1></div>
+        <div class="card-header"><h1>{{ __('messages.serw_settings') }}</h1></div>
         <div class="pod"></div>
         <div class="card-body syf">
             <form id="settingsForm" method="POST" action="{{ route('settings.save') }}">
                 @csrf
                 <input type="checkbox" name="settings[]" value="reklamy"
                     {{ Auth::user()->disable_ads ? 'checked' : '' }}>
-                Wyłącz reklamy w serwisie <br>
-                <span style="margin-left: 20px; font-size: 14px; font-weight: 200; color: gray;">Tu można wyłączyć reklamy w serwisie</span>
+                {{ __('messages.ads_off') }} <br>
+                <span style="margin-left: 20px; font-size: 14px; font-weight: 200; color: gray;">{{ __('messages.ads_off_desc') }}</span>
                 <br>
 
                 <input type="checkbox" name="settings[]" value="maile"
                     {{ Auth::user()->disable_emails ? 'checked' : '' }}>
-                Wyłącz powiadomienia mailowe wysyłane z serwisu <br>
-                <span style="margin-left: 20px; font-size: 14px; font-weight: 200; color: gray;">Tu można wyłączyć maile wysyłane z serwisu</span>
+                {{ __('messages.pop_off') }} <br>
+                <span style="margin-left: 20px; font-size: 14px; font-weight: 200; color: gray;">{{ __('messages.pop_off_desc') }}</span>
                 <br>
                 <br>
             </form>
@@ -664,7 +657,7 @@
         <br>
 
 
-        <div class="card-header"><h2>Szablon kolorystyczny</h2></div>
+        <div class="card-header"><h2>{{ __('messages.theme') }}</h2></div>
         <div class="pod"></div>
         <div class="card-body" >
             <form id="themeForm" method="POST" action="{{ route('settings.saveTheme') }}">
@@ -726,17 +719,17 @@
             }
         </script>
 
-        <div class="card-header"><h2>Obraz tła</h2></div>
+        <div class="card-header"><h2>{{ __('messages.img_bac') }}</h2></div>
         <div class="pod"></div>
         <div class="card-body">
             <form id="backgroundImageForm" method="POST" action="{{ route('settings.saveBackground') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-3">
-                    <label for="top_image" class="form-label">Zdjęcie na górze strony</label>
+                    <label for="top_image" class="form-label">{{ __('messages.img_top') }}</label>
                     <input type="file" id="top_image" name="top_image" class="form-control">
                 </div>
                 <div class="mb-3">
-                    <label for="bottom_image" class="form-label">Zdjęcie na dole strony</label>
+                    <label for="bottom_image" class="form-label">{{ __('messages.img_bot') }}</label>
                     <input type="file" id="bottom_image" name="bottom_image" class="form-control">
                 </div>
                 <button type="submit" class="btn-success">Zapisz obraz tła</button>
@@ -778,7 +771,7 @@
         </div>
 
         <a href="{{ route('admin.users') }}" class="btn btn-primary">
-            Przejdź na strone listy
+            {{ __('messages.list') }}
         </a>
 
     </div>
