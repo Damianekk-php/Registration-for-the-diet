@@ -17,7 +17,19 @@ class AccountController extends Controller
     {
         $user = Auth::user();
         $family = family::where('user_id', $user->id)->get();
-        return view('account.edit', compact('user', 'family'));
+        $allergens = collect();
+
+        if ($user) {
+            $allergens = $user->allergens()->pluck('allergen')->toArray();
+        }
+
+        $allergenStats = DB::table('user_allergens')
+            ->select('allergen', DB::raw('COUNT(user_id) as count'))
+            ->groupBy('allergen')
+            ->get();
+
+
+        return view('account.edit', compact('user', 'family', 'allergens', 'allergenStats'));
     }
 
     public function update(Request $request)
@@ -221,19 +233,28 @@ class AccountController extends Controller
 
     public function detailsByEmail($email)
     {
-
         $member = Family::where('email', $email)->firstOrFail();
-
 
         $user = User::where('email', $email)->first();
 
         $survey = null;
+        $allergens = collect();
+        $allergensd = collect();
+
         if ($user) {
             $survey = $user->survey()->first();
+            $allergens = $user->allergens()->pluck('allergen')->toArray();
+            $allergensd = $user->allergens;
         }
 
-        return view('members.details', compact('member', 'user', 'survey'));
+        $allergenStats = DB::table('user_allergens')
+            ->select('allergen', DB::raw('COUNT(user_id) as count'))
+            ->groupBy('allergen')
+            ->get();
+
+        return view('members.details', compact('member', 'user', 'survey', 'allergens', 'allergenStats', 'allergensd'));
     }
+
 
 
     public function activateFamilyMember($token)

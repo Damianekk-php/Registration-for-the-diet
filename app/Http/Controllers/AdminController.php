@@ -29,16 +29,21 @@ class AdminController extends Controller
 
         if ($request->filled('allergen')) {
             $query->whereHas('allergens', function ($q) use ($request) {
-                if ($request->allergen === 'wszystkie_rodzaje') {
-                    $q->where('allergen', '!=', null);
-                } else {
+                if ($request->allergen !== 'wszystkie_rodzaje') {
                     $q->where('allergen', $request->allergen);
                 }
             });
         }
 
+
         $users = $query->paginate(10);
 
-        return view('admin.users', compact('users'));
+        $allUsersWithAllergens = User::whereHas('allergens')->count();
+        $allergenCounts = \App\Models\UserAllergen::groupBy('allergen')
+            ->selectRaw('allergen, COUNT(*) as count')
+            ->pluck('count', 'allergen');
+
+        return view('admin.users', compact('users', 'allUsersWithAllergens', 'allergenCounts'));
     }
+
 }

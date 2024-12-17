@@ -363,6 +363,49 @@
 
 
                 </form>
+
+
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                <div class="mt-5">
+                    <h4>Statystyki alergenów</h4>
+                    @if ($allergenStats->isNotEmpty())
+                        <canvas id="allergenStatsChart" style="max-width: 400px; max-height: 400px;"></canvas>
+                    @else
+                        <p>Brak danych o alergenach.</p>
+                    @endif
+                </div>
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        @if ($allergenStats->isNotEmpty())
+                        const allergenLabels = @json($allergenStats->pluck('allergen'));
+                        const allergenCounts = @json($allergenStats->pluck('count'));
+
+                        const ctx = document.getElementById('allergenStatsChart').getContext('2d');
+                        new Chart(ctx, {
+                            type: 'pie',
+                            data: {
+                                labels: allergenLabels,
+                                datasets: [{
+                                    data: allergenCounts,
+                                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40']
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                plugins: {
+                                    legend: {
+                                        position: 'top'
+                                    },
+                                    title: {
+                                        display: true,
+                                        text: 'Ilu użytkowników jest uczulonych na poszczególne alergeny'
+                                    }
+                                }
+                            }
+                        });
+                        @endif
+                    });
+                </script>
             </div>
         </div>
         <br><br>

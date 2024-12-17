@@ -96,9 +96,61 @@
         <div class="d-flex justify-content-center">
             {{ $users->links() }}
         </div>
+        <div class="container">
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <h4>Osoby uczulone na alergeny</h4>
+                    <canvas id="allUsersWithAllergensChart" style="max-width: 400px; max-height: 400px;"></canvas>
+                </div>
+                <div class="col-md-6">
+                    <h4>Liczba osób uczulonych na konkretne alergeny</h4>
+                    <canvas id="allergenBreakdownChart" style="max-width: 400px; max-height: 400px;"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const allUsersWithAllergens = {{ $allUsersWithAllergens }};
+                const totalUsers = {{ $users->total() }};
+                const allergenCounts = @json($allergenCounts);
+
+                const ctx1 = document.getElementById('allUsersWithAllergensChart').getContext('2d');
+                new Chart(ctx1, {
+                    type: 'pie',
+                    data: {
+                        labels: ['Uczuleni', 'Nieuczuleni'],
+                        datasets: [{
+                            data: [allUsersWithAllergens, totalUsers - allUsersWithAllergens],
+                            backgroundColor: ['#FF6384', '#36A2EB']
+                        }]
+                    },
+                    options: {
+                        responsive: true
+                    }
+                });
+
+                const ctx2 = document.getElementById('allergenBreakdownChart').getContext('2d');
+                new Chart(ctx2, {
+                    type: 'pie',
+                    data: {
+                        labels: Object.keys(allergenCounts),
+                        datasets: [{
+                            data: Object.values(allergenCounts),
+                            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF']
+                        }]
+                    },
+                    options: {
+                        responsive: true
+                    }
+                });
+            });
+        </script>
+
 
         <a href="{{ route('account.edit') }}" class="btn btn-primary">
             Wróć na strone
         </a>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 @endsection

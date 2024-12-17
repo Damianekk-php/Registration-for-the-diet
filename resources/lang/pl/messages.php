@@ -1,0 +1,26 @@
+<?php
+
+return [
+    'country' => 'Kraj',
+    'postal_code' => 'Kod pocztowy',
+    'activity_level' => 'Poziom aktywności',
+    'age' => 'Wiek',
+    'gender' => 'Płeć',
+    'height' => 'Wzrost',
+    'waist_circumference' => 'Obwód talii',
+    'hip_circumference' => 'Obwód bioder',
+    'thigh_circumference' => 'Obwód uda',
+    'bust_circumference' => 'Obwód biustu',
+    'wrist_circumference' => 'Obwód nadgarstka',
+    'bicep_circumference' => 'Obwód bicepsu',
+    'neck_circumference' => 'Obwód szyi',
+    'no_data' => 'Brak danych',
+    'details_family' => 'Szczegóły członka rodziny',
+    'name' => 'Imię',
+    'status' => 'Status',
+    'email' => 'E-mail',
+    'allergen' => 'Alergeny',
+    'allergen_stats' => 'Statystyki alergenów',
+    'user_data' => 'Dane użytkownika',
+    'go_back' => 'Wróć',
+];
