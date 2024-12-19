@@ -36,3 +36,5 @@ Route::post('/account/family/invite', [AccountController::class, 'inviteFamilyMe
 Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('/admin/users', [AdminController::class, 'index'])->name('admin.users');
 });
+
+Route::get('/admin/users/pdf', [AdminController::class, 'downloadUsersPDF'])->name('admin.users.pdf');

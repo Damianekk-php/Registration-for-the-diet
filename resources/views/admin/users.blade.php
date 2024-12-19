@@ -146,6 +146,7 @@
                 });
             });
         </script>
+        <a href="{{ route('admin.users.pdf') }}" class="btn btn-secondary mb-3">Pobierz PDF</a>
 
 
         <a href="{{ route('account.edit') }}" class="btn btn-primary">

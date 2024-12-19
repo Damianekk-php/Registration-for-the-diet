@@ -5,6 +5,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -44,6 +45,15 @@ class AdminController extends Controller
             ->pluck('count', 'allergen');
 
         return view('admin.users', compact('users', 'allUsersWithAllergens', 'allergenCounts'));
+    }
+
+
+    public function downloadUsersPDF()
+    {
+        $users = User::with(['survey', 'allergens'])->get();
+
+        $pdf = PDF::loadView('pdf.users', compact('users'));
+        return $pdf->download('lista_uzytkownikow.pdf');
     }
 
 }
